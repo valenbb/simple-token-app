@@ -35,4 +35,4 @@ A simple Flask app in Python that requires a correct token in order to return a 
 
 ## License
 
-[MIT](LICENSE.md)
+[MIT](LICENSE)
