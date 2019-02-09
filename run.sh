@@ -26,7 +26,7 @@ main () {
                 fi
                 ;;
             *)
-                echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+                echo $"Usage: $0 {start|stop|status}"
                 exit 1
     
     esac
