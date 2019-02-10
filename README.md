@@ -9,9 +9,9 @@ A simple Flask app in Python that requires a correct token in order to return a 
   - [Unauthorized Request with Invalid Token](#unauthorized-request-with-invalid-token)
   - [Authorized Request with Valid Token](#authorized-request-with-valid-token)
 - [Status Messages](#status-messages)
-  - [PING_TOKEN is not set or invalid](#pingtoken-is-not-set-or-invalid)
-  - [PING_TOKEN is set and valid with a PING response](#pingtoken-is-set-and-valid-with-a-ping-response)
-  - [PING_TOKEN is set and valid without a PING response](#pingtoken-is-set-and-valid-without-a-ping-response)
+  - [PING_TOKEN is not set or invalid](#ping_token-is-not-set-or-invalid)
+  - [PING_TOKEN is set and valid with a PING response](#ping_token-is-set-and-valid-with-a-ping-response)
+  - [PING_TOKEN is set and valid without a PING response](#ping_token-is-set-and-valid-without-a-ping-response)
 - [License](#license)
 
 ## Usage
