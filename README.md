@@ -23,12 +23,12 @@ A simple Flask app in Python that requires a correct token in order to return a 
 
 ### Unauthorized Request with Invalid Token
 
-1. `export PING_TOKEN=notCyberark1 && ./run start`
+1. `export PING_TOKEN=notCyberark1; ./run start`
 2. Browse to http://127.0.0.1:5000
 
 ### Authorized Request with Valid Token
 
-1. `export PING_TOKEN=Cyberark1 && ./run start`
+1. `export PING_TOKEN=Cyberark1; ./run start`
 2. Browse to http://127.0.0.1:5000
 
 ## Status Messages
