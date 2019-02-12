@@ -10,7 +10,7 @@ pipeline {
                     docker run --name sta -d -p 5000:5000 sta:test
                 '''
                 script {
-                    def STA_IP = sh (
+                    STA_IP = sh (
                         script: 'docker inspect -f \'{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}\' sta',
                         returnStdout: true
                     ).trim()
