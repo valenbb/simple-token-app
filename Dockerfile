@@ -4,7 +4,9 @@ WORKDIR /app
 
 ADD . /app
 
-RUN pip install --upgrade pip && \
+RUN sudo apt update && \
+    sudo apt install git -qq -y && \
+    pip install --upgrade pip && \
     pip install -r requirements.txt
 
 EXPOSE 5000
