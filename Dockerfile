@@ -1,13 +1,12 @@
 FROM python:3.7-alpine
 
-RUN mkdir -p /src
-WORKDIR /src
+WORKDIR /app
 
-COPY main.py /src
-COPY requirements.txt /src
+ADD . /app
 
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
-ENTRYPOINT [ "python" ]
+EXPOSE 5000
 
-CMD [ "main.py" ]
+CMD ["python", "main.py"]
