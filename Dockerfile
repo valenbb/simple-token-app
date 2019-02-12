@@ -4,8 +4,7 @@ WORKDIR /app
 
 ADD . /app
 
-RUN apt-get update && \
-    apt-get install git -qq -y && \
+RUN apk add --no-cache git && \
     pip install --upgrade pip && \
     pip install -r requirements.txt
 
