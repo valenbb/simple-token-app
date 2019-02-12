@@ -1,1 +1,2 @@
 Flask
+git+git://github.com/conjurinc/conjur-api-python3#egg=conjur_api_python3
