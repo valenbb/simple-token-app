@@ -52,4 +52,13 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            sh '''
+                docker rm -f sta
+                docker rmi sta:test
+            '''
+            deleteDir()
+        }
+    }
 }
