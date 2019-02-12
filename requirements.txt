@@ -1,2 +1,2 @@
 Flask
-git+ssh://infamousjoeg@github.com/conjurinc/conjur-api-python3#egg=conjur_api_python3
+#git+ssh://infamousjoeg@github.com/conjurinc/conjur-api-python3#egg=conjur_api_python3

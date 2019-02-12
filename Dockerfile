@@ -4,8 +4,7 @@ WORKDIR /app
 
 ADD . /app
 
-RUN apk add --no-cache git && \
-    pip install --upgrade pip && \
+RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
 EXPOSE 5000
