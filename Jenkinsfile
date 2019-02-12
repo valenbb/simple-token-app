@@ -13,7 +13,7 @@ pipeline {
         stage ('Test Web App with no PING_TOKEN') {
             steps {
                 script {
-                    def PING_STATUS = httpRequest 'http://localhost:5000'
+                    def PING_STATUS = httpRequest 'http://$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' sta):5000'
                     echo "${PING_STATUS.content}"
                     if (PING_STATUS.content != 'Unauthorized Request') {
                         sh 'exit 1'
@@ -27,7 +27,7 @@ pipeline {
             }
             steps {
                 script {
-                    def PING_STATUS = httpRequest 'http://localhost:5000'
+                    def PING_STATUS = httpRequest 'http://$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' sta):5000'
                     echo "${PING_STATUS.content}"
                     if (PING_STATUS.content != 'Unauthorized Request') {
                         sh 'exit 1'
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 withCredentials([conjurSecretCredential(credentialsId: 'sta-token', variable: 'PING_TOKEN')]) {
                     script {
-                        def PING_STATUS = httpRequest 'http://localhost:5000'
+                        def PING_STATUS = httpRequest 'http://$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' sta):5000'
                         echo "${PING_STATUS.content}"
                         if (PING_STATUS.content != 'Network Active' || PING_STATUS.content != 'Network Error') {
                             sh 'exit 1'
