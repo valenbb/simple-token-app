@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     def PING_STATUS = sh (
-                        script: 'curl http://localhost:5000',
+                        script: 'curl http://$(docker inspect -f "{{ .NetworkSettings.IPAddress }}" sta):5000',
                         returnStdout: true
                     ).trim()
                     if (PING_STATUS != 'Unauthorized Request') {
@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     def PING_STATUS = sh (
-                        script: 'export PING_TOKEN=invalid_token; curl http://localhost:5000',
+                        script: 'export PING_TOKEN=invalid_token; curl http://$(docker inspect -f "{{ .NetworkSettings.IPAddress }}" sta):5000',
                         returnStdout: true
                     ).trim()
                     if (PING_STATUS != 'Unauthorized Request') {
@@ -41,7 +41,7 @@ pipeline {
                 withCredentials([conjurSecretCredential(credentialsId: 'sta-token', variable: 'PING_TOKEN')]) {
                     script {
                         def PING_STATUS = sh (
-                            script: 'curl http://localhost:5000',
+                            script: 'curl http://$(docker inspect -f "{{ .NetworkSettings.IPAddress }}" sta):5000',
                             returnStdout: true
                         ).trim()
                         if (PING_STATUS != 'Network Active' || PING_STATUS != 'Network Error') {
