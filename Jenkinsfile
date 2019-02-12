@@ -14,7 +14,8 @@ pipeline {
             steps {
                 script {
                     def PING_STATUS = httpRequest 'http://localhost:5000'
-                    if (PING_STATUS != 'Unauthorized Request') {
+                    echo "${PING_STATUS.content}"
+                    if (PING_STATUS.content != 'Unauthorized Request') {
                         sh 'exit 1'
                     }
                 }
@@ -27,7 +28,8 @@ pipeline {
             steps {
                 script {
                     def PING_STATUS = httpRequest 'http://localhost:5000'
-                    if (PING_STATUS != 'Unauthorized Request') {
+                    echo "${PING_STATUS.content}"
+                    if (PING_STATUS.content != 'Unauthorized Request') {
                         sh 'exit 1'
                     }
                 }
@@ -38,7 +40,8 @@ pipeline {
                 withCredentials([conjurSecretCredential(credentialsId: 'sta-token', variable: 'PING_TOKEN')]) {
                     script {
                         def PING_STATUS = httpRequest 'http://localhost:5000'
-                        if (PING_STATUS != 'Network Active' || PING_STATUS != 'Network Error') {
+                        echo "${PING_STATUS.content}"
+                        if (PING_STATUS.content != 'Network Active' || PING_STATUS.content != 'Network Error') {
                             sh 'exit 1'
                         }
                     }
