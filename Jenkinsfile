@@ -15,12 +15,13 @@ pipeline {
                         returnStdout: true
                     ).trim()
                 }
+                echo "The IP Address is: ${params.STA_IP}"
             }
         }
         stage ('Test Web App with no PING_TOKEN') {
             steps {
                 script {
-                    def PING_STATUS = httpRequest 'http://${STA_IP}:5000'
+                    def PING_STATUS = httpRequest 'http://"${params.STA_IP}":5000'
                     echo "${PING_STATUS.content}"
                     if (PING_STATUS.content != 'Unauthorized Request') {
                         sh 'exit 1'
