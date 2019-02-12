@@ -4,8 +4,8 @@ WORKDIR /app
 
 ADD . /app
 
-RUN sudo apt update && \
-    sudo apt install git -qq -y && \
+RUN apt update && \
+    apt install git -qq -y && \
     pip install --upgrade pip && \
     pip install -r requirements.txt
 
