@@ -1,11 +1,20 @@
 pipeline {
-    agent { dockerfile true }
+    agent any
+
     stages {
+        stage ('Build Test Container') {
+            steps {
+                sh '''
+                    docker build -t sta:test .
+                    docker run --name sta -d -p 5000:5000 sta:test
+                '''
+            }
+        }
         stage ('Test Web App with no PING_TOKEN') {
             steps {
                 script {
                     def PING_STATUS = sh (
-                        script: 'curl -k http://127.0.0.1:5000',
+                        script: 'curl -k http://localhost:5000',
                         returnStdout: true
                     ).trim()
                     if (PING_STATUS != 'Unauthorized Request') {
@@ -18,7 +27,7 @@ pipeline {
             steps {
                 script {
                     def PING_STATUS = sh (
-                        script: 'export PING_TOKEN=invalid_token; curl -k http://127.0.0.1:5000',
+                        script: 'export PING_TOKEN=invalid_token; curl -k http://localhost:5000',
                         returnStdout: true
                     ).trim()
                     if (PING_STATUS != 'Unauthorized Request') {
@@ -32,7 +41,7 @@ pipeline {
                 withCredentials([conjurSecretCredential(credentialsId: 'sta-token', variable: 'PING_TOKEN')]) {
                     script {
                         def PING_STATUS = sh (
-                            script: 'curl -k http://127.0.0.1:5000',
+                            script: 'curl -k http://localhost:5000',
                             returnStdout: true
                         ).trim()
                         if (PING_STATUS != 'Network Active' || PING_STATUS != 'Network Error') {
