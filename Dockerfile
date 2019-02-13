@@ -4,7 +4,8 @@ WORKDIR /app
 
 ADD . /app
 
-RUN pip install --upgrade pip && \
+RUN apk add --no-cache curl && \
+    pip install --upgrade pip && \
     pip install -r requirements.txt
 
 EXPOSE 5000

@@ -11,6 +11,7 @@ pipeline {
                     docker build -t sta:test .
                     docker run --name sta -d -p 5000:5000 sta:test
                 '''
+                /*
                 script {
                     STA_IP = sh (
                         script: 'docker inspect -f \'{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}\' sta',
@@ -19,18 +20,19 @@ pipeline {
                     echo "The IP Address is: ${STA_IP}"
                     HTTP_ADDRESS = "http://${STA_IP}:5000"
                 }
+                */
             }
         }
         stage ('Test Web App with no PING_TOKEN') {
             steps {
                 script {
-                    echo "The URL is: ${HTTP_ADDRESS}"
+                    // echo "The URL is: ${HTTP_ADDRESS}"
                     def PING_STATUS = sh (
-                        script: 'head -n 1 < <(curl -I http://localhost:5000 2>/dev/null)',
+                        script: 'docker exec -t sta curl http://localhost:5000',
                         returnStdout: true
                     ).trim()
                     echo "The Status Code returned is: ${PING_STATUS}"
-                    if (PING_STATUS != 'HTTP/1.0 200 OK') {
+                    if (PING_STATUS != 'Unauthorized Request') {
                         sh 'exit 1'
                     }
                 }
