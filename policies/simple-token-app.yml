@@ -8,7 +8,7 @@
 - !grant
   role: !group token-users
   members:
-    - !layer simple-token-app
+    - !layer
     - !layer /jenkins-frontend
 
 - !permit
