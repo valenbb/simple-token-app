@@ -25,8 +25,9 @@ pipeline {
             steps {
                 script {
                     echo "The URL is: ${HTTP_ADDRESS}"
+                    def PING_COMMAND = $/"curl -I ${HTTP_ADDRESS} 2>\/dev\/null | head -n 1 | cut -d$' ' -f2"/$
                     def PING_STATUS = sh (
-                        script: 'curl -I ${HTTP_ADDRESS} 2>/dev/null | head -n 1 | cut -d$\' \' -f2',
+                        script: 'PING_COMMAND',
                         returnStdout: true
                     ).trim()
                     echo "The Status Code returned is: ${PING_STATUS}"
