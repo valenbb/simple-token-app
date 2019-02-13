@@ -25,13 +25,12 @@ pipeline {
             steps {
                 script {
                     echo "The URL is: ${HTTP_ADDRESS}"
-                    def PING_COMMAND = $/"curl -I ${HTTP_ADDRESS} 2>\/dev\/null | head -n 1 | cut -d$' ' -f2"/$
                     def PING_STATUS = sh (
-                        script: 'PING_COMMAND',
+                        script: 'head -n 1 < <(curl -I http://localhost:5000 2>/dev/null)',
                         returnStdout: true
                     ).trim()
                     echo "The Status Code returned is: ${PING_STATUS}"
-                    if (PING_STATUS != '200') {
+                    if (PING_STATUS != 'HTTP/1.0 200 OK') {
                         sh 'exit 1'
                     }
                 }
