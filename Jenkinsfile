@@ -1,4 +1,6 @@
 def STA_IP
+def HTTP_ADDRESS
+
 pipeline {
     agent any
 
@@ -15,20 +17,26 @@ pipeline {
                         returnStdout: true
                     ).trim()
                 }
-                echo "The IP Address is: ${params.STA_IP}"
+                echo "The IP Address is: ${STA_IP}"
+                HTTP_ADDRESS = "http://${STA_IP}:5000"
             }
         }
         stage ('Test Web App with no PING_TOKEN') {
             steps {
                 script {
-                    def PING_STATUS = httpRequest 'http://"${params.STA_IP}":5000'
-                    echo "${PING_STATUS.content}"
-                    if (PING_STATUS.content != 'Unauthorized Request') {
+                    echo "The URL is: ${HTTP_ADDRESS}"
+                    def PING_STATUS = sh (
+                        script: 'curl -I ${HTTP_ADDRESS} 2>/dev/null | head -n 1 | cut -d$\' \' -f2',
+                        returnStdout: true
+                    ).trim()
+                    echo "The Status Code returned is: ${PING_STATUS}"
+                    if (PING_STATUS != '200') {
                         sh 'exit 1'
                     }
                 }
             }
         }
+        /*
         stage ('Test Web App with invalid PING_TOKEN') {
             environment {
                     PING_TOKEN = 'notCyberark1'
@@ -56,6 +64,7 @@ pipeline {
                 }
             }
         }
+        */
     }
     post {
         always {
