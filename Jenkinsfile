@@ -6,9 +6,9 @@ pipeline {
             steps {
                 withCredentials([conjurSecretCredential(credentialsId: 'sta-token', variable: 'VALID_TOKEN')]) {
                     sh 'docker build -t sta:test .'
-                    sh 'docker run --name sta_notoken -d -p 5001:5000 sta:test'
-                    sh 'docker run --name sta_invalidtoken -e PING_TOKEN=notValid -d -p 5002:5000 sta:test'
-                    sh 'docker run --name sta_validtoken -d -e PING_TOKEN=${VALID_TOKEN} -p 5003:5000 sta:test'
+                    sh 'docker run --name sta_notoken -d sta:test'
+                    sh 'docker run --name sta_invalidtoken -d -e PING_TOKEN=notValid sta:test'
+                    sh 'docker run --name sta_validtoken -d -e PING_TOKEN=${VALID_TOKEN} sta:test'
                 }
             }
         }
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     def PING_STATUS = sh (
-                        script: 'docker exec -t sta_notoken curl http://localhost:5001',
+                        script: 'docker exec -t sta_notoken curl http://localhost:5000',
                         returnStdout: true
                     ).trim()
                     echo "The Status Code returned is: ${PING_STATUS}"
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     def PING_STATUS = sh (
-                        script: 'docker exec -t sta_invalidtoken curl http://localhost:5002',
+                        script: 'docker exec -t sta_invalidtoken curl http://localhost:5000',
                         returnStdout: true
                     ).trim()
                     echo "The Status Code returned is: ${PING_STATUS}"
@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script {
                     def PING_STATUS = sh (
-                        script: 'docker exec -t sta_validtoken curl http://localhost:5003',
+                        script: 'docker exec -t sta_validtoken curl http://localhost:5000',
                         returnStdout: true
                     ).trim()
                     echo "The Status Code returned is: ${PING_STATUS}"
