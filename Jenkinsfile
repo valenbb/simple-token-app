@@ -16,9 +16,9 @@ pipeline {
                         script: 'docker inspect -f \'{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}\' sta',
                         returnStdout: true
                     ).trim()
+                    echo "The IP Address is: ${STA_IP}"
+                    HTTP_ADDRESS = "http://${STA_IP}:5000"
                 }
-                echo "The IP Address is: ${STA_IP}"
-                HTTP_ADDRESS = "http://${STA_IP}:5000"
             }
         }
         stage ('Test Web App with no PING_TOKEN') {
