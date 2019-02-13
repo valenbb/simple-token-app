@@ -1,0 +1,5 @@
+Jenkinsfile
+*.sh
+LICENSE
+*.md
+.vscode/
