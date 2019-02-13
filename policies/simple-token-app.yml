@@ -1,0 +1,18 @@
+- &variables
+  - !variable ping_token
+
+- !layer
+
+- !group token-users
+
+- !grant
+  role: !group token-users
+  members:
+    - !layer simple-token-app
+    - !layer /jenkins-frontend
+
+- !permit
+  resource: *variables
+  privileges: [ read, execute ]
+  members:
+    - !group token-users
