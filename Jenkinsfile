@@ -48,7 +48,7 @@ pipeline {
                         returnStdout: true
                     ).trim()
                     echo "The Status Code returned is: ${PING_STATUS}"
-                    if (PING_STATUS != 'Network Active' || PING_STATUS != 'Network Error') {
+                    if (PING_STATUS != 'Network Active' && PING_STATUS != 'Network Error') {
                         sh 'exit 1'
                     }
                 }
