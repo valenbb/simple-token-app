@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     def PING_STATUS = sh (
-                        script: 'docker exec -t sta curl http://localhost:5001',
+                        script: 'docker exec -t sta_notoken curl http://localhost:5001',
                         returnStdout: true
                     ).trim()
                     echo "The Status Code returned is: ${PING_STATUS}"
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     def PING_STATUS = sh (
-                        script: 'docker exec -t sta curl http://localhost:5002',
+                        script: 'docker exec -t sta_invalidtoken curl http://localhost:5002',
                         returnStdout: true
                     ).trim()
                     echo "The Status Code returned is: ${PING_STATUS}"
@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script {
                     def PING_STATUS = sh (
-                        script: 'docker exec -t sta curl http://localhost:5003',
+                        script: 'docker exec -t sta_validtoken curl http://localhost:5003',
                         returnStdout: true
                     ).trim()
                     echo "The Status Code returned is: ${PING_STATUS}"
