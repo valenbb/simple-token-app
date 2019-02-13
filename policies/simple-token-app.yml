@@ -12,7 +12,6 @@
     - !layer /jenkins-frontend
 
 - !permit
-  resource: *variables
+  role: !group token-users
   privileges: [ read, execute ]
-  members:
-    - !group token-users
+  resource: *variables
