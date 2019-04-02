@@ -1,0 +1,7 @@
+- !host jenkins-frontend
+
+- !layer jenkins-frontends
+
+- !grant
+  role: !layer jenkins
+  member: !host jenkins-frontend

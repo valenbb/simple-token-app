@@ -9,7 +9,7 @@
   role: !group token-users
   members:
     - !layer
-    - !layer /jenkins-frontend
+    - !layer /jenkins/jenkins-frontends
 
 - !permit
   role: !group token-users
