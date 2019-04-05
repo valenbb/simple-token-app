@@ -9,7 +9,7 @@ RUN apk add --no-cache curl && \
     pip install -r requirements.txt && \
     # Due to a bug in Werkzeug==0.15.2 -> Downgrade to Werkzeug==0.14.1
     pip uninstall Werkzeug -y && \
-    pip install Werkzeug
+    pip install Werkzeug==0.14.1
 
 EXPOSE 5000
 
