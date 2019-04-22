@@ -56,7 +56,7 @@ A simple Flask app in Python that requires a correct token in order to return a 
 1. `docker run --name sta_invalidtoken -d -e PING_TOKEN=notCyberark1 -p 5000:5000 sta:latest`
 2. Browse to http://127.0.0.1:5000
 
-#### Unauthorized Request without Token
+#### Authorized Request with Valid Token
 
 1. `docker run --name sta_validtoken -d -e PING_TOKEN=Cyberark1 -p 5000:5000 sta:latest`
 2. Browse to http://127.0.0.1:5000
